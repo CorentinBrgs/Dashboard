@@ -1,0 +1,41 @@
+# depslib dependency file v1.0
+1497314977 source:f:\documents\supelec\projet 1a\dashboard\pcars_sharedmem\sms_memmapsample.cpp
+	<windows.h>
+	"sharedmemory.h"
+	<stdio.h>
+	<conio.h>
+	<cstdlib>
+	<tchar.h>
+	"SerialClass.h"
+	<string>
+
+1496180886 f:\documents\supelec\projet 1a\dashboard\pcars_sharedmem\sharedmemory.h
+
+1497091062 source:f:\documents\supelec\projet 1a\dashboard\pcars_sharedmem\serialclass.cpp
+	"SerialClass.h"
+
+1497090972 f:\documents\supelec\projet 1a\dashboard\pcars_sharedmem\serialclass.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1497354631 source:f:\documents\supelec\projet 1a\dashboard\dashboard_main\serialclass.cpp
+	"SerialClass.h"
+
+1497090972 f:\documents\supelec\projet 1a\dashboard\dashboard_main\serialclass.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1497355671 source:f:\documents\supelec\projet 1a\dashboard\dashboard_main\dashboard_main.cpp
+	<windows.h>
+	"sharedmemory.h"
+	<stdio.h>
+	<conio.h>
+	<cstdlib>
+	<tchar.h>
+	"SerialClass.h"
+	<string>
+
+1496180886 f:\documents\supelec\projet 1a\dashboard\dashboard_main\sharedmemory.h
+
