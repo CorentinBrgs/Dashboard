@@ -16,6 +16,7 @@ class Matrix {
     void begin();
     void disp();
     void input(byte matrixTab[8][8]); 
+    void clear();
 
     void writeLine(byte lineMask);
     void writeRed(byte redMask);

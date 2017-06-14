@@ -78,22 +78,21 @@ void Matrix::lineDisp(byte lineNumber){
     _colorTab[color] = mask ;
   }
   writeLine(0);
-  writeRed(_colorTab[2]/*&(B01010101<<_halfDisp)*/);
-  writeGreen(_colorTab[1]/*&(B01010101<<_halfDisp)*/);
-  writeBlue(_colorTab[0]/*&(B01010101<<_halfDisp)*/);
+  writeRed(_colorTab[2]);
+  writeGreen(_colorTab[1]);
+  writeBlue(_colorTab[0]);
   writeLine(1<<lineNumber);
 }
 
 void Matrix::disp() {
   for(byte i=0; i<8; i++) {
-    /*if ((i%3)==0){
-      lineDisp(0);
-    }*/
     lineDisp(i);
-    delayMicroseconds(50);
+    delayMicroseconds(5);
   }
-  //_halfDisp = (_halfDisp+1)%2;
+}
 
+void Matrix::clear() {
+  writeLine(0);
 }
 
 void Matrix::input(byte matrixTab[8][8]) {
@@ -141,7 +140,4 @@ void Matrix::bargraphDisp(int motorSpeed, int motorSpeedMin, int motorSpeedMax){
     for(byte i=0;i<8;i++) {
       _matrixTab[0][i] = _barGraphTab[i] * (i<_barGraphNumber);
     }
-  }
-
-//void Matrix::input(byte matrixTab[8][8]) {
-  
+  }  

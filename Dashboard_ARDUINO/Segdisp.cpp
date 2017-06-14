@@ -30,7 +30,7 @@ void Segdisp::disp(byte digit) {
 }
 
 void Segdisp::writedigit(byte nb, bool point, byte digit){ //affiche "nb" au "digit" sélectionné
-  disp(255);
+  clear();
   write(nb, point);
   disp(digit);
 }
@@ -55,3 +55,6 @@ void Segdisp::writeint(int nbint){
   MCPSegDisp.write(255, _portDigit);
 }
 
+void Segdisp::clear() {
+  disp(255); 
+}

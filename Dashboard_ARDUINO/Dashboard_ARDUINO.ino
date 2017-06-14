@@ -23,8 +23,8 @@ void setup() {
 }
 
 void loop() {
-  affich.writeint(100);
   data.read();
+  affich.writeint(data.carSpeed);
   matrice.bargraphDisp(data.rpm, 6000, data.maxRpm);
   matrice.gearDisp(data.gear, BLUE);
   matrice.disp();
