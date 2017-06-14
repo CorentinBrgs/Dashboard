@@ -17,16 +17,12 @@ void Segdisp::begin() {
 }
 
 void Segdisp::write(byte nb, bool point) {
-  /*if (point) {
+  if (point) {
     MCPSegDisp.write(_digitTab[nb+10], _portNb);
   }
   else {
     MCPSegDisp.write(_digitTab[nb], _portNb);
-  }*/
-  
-  //debug 
-  MCPSegDisp.write(B01010101, 0);
-  MCPSegDisp.write(B1001, 1);
+  }
 }
 
 void Segdisp::disp(byte digit) {
@@ -34,7 +30,7 @@ void Segdisp::disp(byte digit) {
 }
 
 void Segdisp::writedigit(byte nb, bool point, byte digit){ //affiche "nb" au "digit" sélectionné
-  disp(0);
+  disp(255);
   write(nb, point);
   disp(digit);
 }
@@ -44,6 +40,18 @@ void Segdisp::writedigit(byte nb, byte digit) { //affiche "nb" au "digit" sélec
 }
 
 void Segdisp::writeint(int nbint){
-
+  byte _digit3 = int(nbint/1000);
+  writedigit(_digit3, 3);
+  //delayMicroseconds(10);
+  byte _digit2 = int((nbint%1000)/100);
+  writedigit(_digit2, 2);
+  //delayMicroseconds(10);
+  byte _digit1 = int((nbint%100)/10);
+  writedigit(_digit1, 1);
+  //delayMicroseconds(10);
+  byte _digit0 = int(nbint%10);
+  writedigit(_digit0, 0);
+  //delayMicroseconds(10);
+  MCPSegDisp.write(255, _portDigit);
 }
 
