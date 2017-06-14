@@ -26,7 +26,7 @@ class Dashdata {
 		bool _dataBegin = 0;
 		int _dataCounter = 0;
 		int _charCounter = 0;
-    long _temps;
+    	long _temps;
 };
 #endif
 
