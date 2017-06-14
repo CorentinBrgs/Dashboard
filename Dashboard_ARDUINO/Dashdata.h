@@ -1,5 +1,5 @@
 /*
-  DashboardData.h - Library for the Dashboard project. 
+  Dashdata.h - Library for the Dashboard project. 
   Created by Corentin BERGES, 13-06-2017, France.
 */
 
@@ -12,19 +12,21 @@
 class Dashdata {
 	public :
 		Dashdata();
-		void read();
+		int read();
 		void write(int v1, int v2);
 
-		int carSpeed;
-		int maxRpm;
-		int rpm;
-		int gear;
+		int carSpeed = 0;
+		int maxRpm = 0;
+		int rpm = 0;
+		int gear = 0;
 
 	private :
-		char _currentChar;
-		int _currentNb;
-		bool _dataBegin;
-		int _dataCounter;
-		char _charCounter;
+		byte _currentChar = 0;
+		int _currentNb = 0;
+		bool _dataBegin = 0;
+		int _dataCounter = 0;
+		int _charCounter = 0;
+    long _temps;
 };
 #endif
+

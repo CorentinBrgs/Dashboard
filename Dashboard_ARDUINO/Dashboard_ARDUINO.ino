@@ -6,7 +6,7 @@
 #define BLUE 1
 
 Matrix matrice(0x20, 0x21, 0, 3, 1, 2);  
-Dashdata data = Dashdata(); //création de l'objet data ayant pour attribut 
+Dashdata data; //création de l'objet data ayant pour attribut 
                             //les paramètres envoyés par le jeu, voir Dashdata.h
 
 void setup() {
@@ -16,8 +16,9 @@ void setup() {
 }
 
 void loop() {
+  //matrice.writeLine(0);
   data.read();
-  matrice.bargraphDisp(6000, data.rpm, data.maxRpm);
+  matrice.bargraphDisp(data.rpm, 6000, data.maxRpm);
   matrice.gearDisp(data.gear, BLUE);
   matrice.disp();
 }
