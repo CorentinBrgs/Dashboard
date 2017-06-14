@@ -142,6 +142,10 @@ int main(int argc, _TCHAR* argv[])
 	printf( "ESC TO EXIT\n\n");
 	while(true) //tant que le Dashboard est connecté
 	{
+
+
+		// Enable it if you want the programm to read what Arduino sends.
+		// May slow the programm
 		/*readResult = SP->ReadData(incomingData,dataLength);
 		if (readResult) {
 			printf("%s\n",incomingData);
@@ -150,15 +154,17 @@ int main(int argc, _TCHAR* argv[])
         incomingData[readResult] = 0;*/
 
 		//------------------------------------------------------------------------------
-		// Acquire data from game and print it in the console
+		// Acquire data from game
+		// Print to console
+		// Send to arduino
 		//------------------------------------------------------------------------------
 
 		//printf("mGameState: (%d)\n", sharedData->mGameState );
 		//printf("mSessionState: (%d)\n", sharedData->mSessionState );
 		//printf("mRaceState: (%d)\n\n", sharedData->mRaceState );
-		printf (" mGear : (%d)\n", sharedData->mGear );
+		//printf (" mGear : (%d)\n", sharedData->mGear );
 		//printf(" mNumGears : (%d)\n", int(sharedData->mNumGears));
-        printf(" mRpm : (%d)\n", int((sharedData->mRpm)));
+        //printf(" mRpm : (%d)\n", int((sharedData->mRpm)));
 		//printf(" mSpeed : (%d)\n", int((sharedData->mSpeed)*3.6));
 		//printf(" mThrottle : (%d)\n", int((sharedData->mThrottle)*100));
         //printf(" mBrake : (%d)\n", int((sharedData->mBrake)*100));
@@ -167,28 +173,28 @@ int main(int argc, _TCHAR* argv[])
 		//int mGameState = sharedData->mGameState ;
 		//int mSessionState = sharedData->mSessionState;
 		//int mRaceState = sharedData->mRaceState;
-		int mGear = sharedData->mGear;
-		int mRpm = int(sharedData->mRpm);
-		int mMaxRPM = int(sharedData->mMaxRPM);
-
-		int rpmGraph = (mRpm>6000)*9*(mRpm-6000)/(mMaxRPM-6000);
-		//int mSpeed = int((sharedData->mSpeed)*3.6);
+		//int rpmGraph = (mRpm>6000)*9*(mRpm-6000)/(mMaxRPM-6000);
 		//int mThrottle = int((sharedData->mThrottle)*100);
 		//int mBrake = int((sharedData->mBrake)*100);
+        int mGear = sharedData->mGear;
+		int mRpm = int(sharedData->mRpm);
+		int mMaxRPM = int(sharedData->mMaxRPM);
+		int mSpeed = int((sharedData->mSpeed)*3.6);
 
 
 
-		/* RESTE A DEFINIR : VARIABLES A ENVOYER
-        FORME DES DONNES A ENVOYER (protocole);*/
-        char buffer[10];
+        char buffer[40]; //buffer contenant les données à envoyer. Chaine de caractère
+        				 //attention à la taille de la chaine pour éviter les débordements
         //sprintf(buffer, "%d", mGear);
-        sprintf(buffer, "%d%d", rpmGraph, mGear);
+        //format de donnée à utiliser : '/%,%,%,%;'
+        sprintf(buffer, "/%d,%d,%d,%d;", mSpeed, mRpm, mMaxRPM, mGear); //format de donnée à utiliser
         unsigned int nbChar = strlen (buffer);
 
-		WriteIsOk = SP->WriteData(buffer, nbChar);
-        printf("WriteDataOk = %d\n", WriteIsOk);
 
-        system("cls");
+		WriteIsOk = SP->WriteData(buffer, nbChar);
+        //printf("WriteDataOk = %d\n", WriteIsOk); //si besoin de débugger l'écriture série
+
+        //system("cls");
 
 		if ( _kbhit() && _getch() == 27 ) // check for escape
 		{

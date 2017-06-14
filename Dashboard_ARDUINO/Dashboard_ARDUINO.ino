@@ -1,32 +1,23 @@
 #include <Matrix.h>
 #include <Wire.h>
 #include <MCP23017.h>
+#include "Dashdata.h"
+
+#define BLUE 1
 
 Matrix matrice(0x20, 0x21, 0, 3, 1, 2);  
-long temps ;
-int gear = 0;
-int rpm = 0;
+Dashdata data = Dashdata(); //création de l'objet data ayant pour attribut 
+                            //les paramètres envoyés par le jeu, voir Dashdata.h
 
 void setup() {
-  // put your setup code here, to run once:
-  matrice.begin();
-  Serial.begin(115200);
+  matrice.begin(); //initialise la matrice et les démultiplexeurs i2c
+  Serial.begin(115200); //initialisation liaison série à la vitesse de 115200 baud.
+                        // Si  besoin de changer changer de même dans /Dashboard_MAIN/Dashboard_main.cpp
 }
 
 void loop() {
-  if (Serial.available()>0) {
-    rpm = Serial.read()-48;
-    gear = Serial.read()-48;
-  }
-  matrice.bargraphDisp(rpm,0,9);
-  if (gear>0){
-      matrice.gearDisp(gear, 1);
-  }
+  data.read();
+  matrice.bargraphDisp(6000, data.rpm, data.maxRpm);
+  matrice.gearDisp(data.gear, BLUE);
   matrice.disp();
-//  Serial.print(matrice.MCPLine._addr, HEX);
-//  Serial.print(matrice.MCPLine._port, HEX);
-//  Serial.println(matrice._portLine[0], HEX);
-//  Serial.println(matrice._addrBlue, HEX);
-//  delay(1000);
-  
 }
