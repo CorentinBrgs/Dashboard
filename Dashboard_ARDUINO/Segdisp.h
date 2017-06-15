@@ -19,7 +19,9 @@ class Segdisp{
     void writedigit(byte nb, byte digit); //affiche "nb" au "digit" sélectionné
     void writedigit(byte nb, bool point, byte digit); //affiche "nb." au "digit" sélectionné si point = 1
     void writeint(int nbint); //affiche le int (<10000) passé en paramètre
+    void clear();
     MCP23017 MCPSegDisp = MCP23017(_addr);
+
 
   private :
     byte _addr;

@@ -10,34 +10,33 @@
 
 #include "Dashboard.h"
 
-//si un seul afficheur 4*7 segments
-Dashboard::Dashboard(byte addrMatrix1, byte addrMatrix2, 
-					byte portLine, byte portRed, byte portGreen, byte portBlue, 
-					byte addrSeg) {
-	Dashboard(addrMatrix1, addrMatrix2, portLine, portRed, portGreen, portBlue, addrSeg, 0x00);
-}
-
-//si deux afficheurs 4*7 segments
 Dashboard::Dashboard(byte addrMatrix1, byte addrMatrix2, 
 					byte portLine, byte portRed, byte portGreen, byte portBlue, 
 					byte addrSeg1, byte addrSeg2) {
+	_addrMatrix1 = addrMatrix1;
+	_addrMatrix2 = addrMatrix2;
+	_portLine = portLine;
+	_portRed = portRed;
+	_portGreen = portGreen;
+	_portBlue = portBlue;
+	_addrSeg1 = addrSeg1;
+	_addrSeg2 = addrSeg2;
 
-	Matrix matrice = Matrix(addrMatrix1, addrMatrix2, 
-					portLine, portRed, portGreen, portBlue);
-	Segdisp segdisp1 =  Segdisp(addrSeg1);
-	Segdisp segdisp2 =  Segdisp(addrSeg2);
+	matrice = Matrix(_addrMatrix1, _addrMatrix2, _portLine, _portRed, _portGreen, _portBlue);
+	segdisp1 =  Segdisp(_addrSeg1);
+	segdisp2 =  Segdisp(_addrSeg2);
 }
 
 void Dashboard::begin() {
 	matrice.begin();
-	Segdisp1.begin();
-	Segdisp2.begin();
+	segdisp1.begin();
+	segdisp2.begin();
 }
 
 //si un seul afficheur 4*7 segments
 void Dashboard::disp(int nbint){
 	for(byte i=0; i<8; i++) {
-	    lineDisp(i);
+	    matrice.lineDisp(i);
 	    switch(i) {
 	    	case 0 :
   				segdisp1.writedigit(int(nbint/1000), 3);
@@ -60,7 +59,7 @@ void Dashboard::disp(int nbint){
 //si deux afficheurs 4*7 segments
 void Dashboard::disp(int nbint1, int nbint2){
 	for(byte i=0; i<8; i++) {
-	    lineDisp(i);
+	    matrice.lineDisp(i);
 	    switch(i) {
 	    	case 0 :
   				segdisp1.writedigit(int(nbint1/1000), 3);
@@ -94,13 +93,24 @@ void Dashboard::flagDisp(bool yellowFlag, bool blueFlag, bool whiteFlag){
 void Dashboard::bargraphDisp(int motorSpeed, int morotSpeedMin, int motorSpeedMax){
 	matrice.bargraphDisp(motorSpeed, morotSpeedMin, motorSpeedMax);
 }
-void Dashboard::writedigit(byte nb, byte digit){ //affiche "nb" au "digit" sélectionné
-	matrice.writedigit(nb, digit);
-}
-void Dashboard::writedigit(byte nb, bool point, byte digit) { //affiche "nb." au "digit" sélectionné si point = 1
-	matrice.writedigit(nb, point, digit);
-}
 
+
+void Dashboard::writedigit(byte nb, byte digit, bool seg){ //affiche "nb" au "digit" sélectionné
+	if (seg){
+	    segdisp2.writedigit(nb, digit);
+		}
+  	else {
+    	segdisp1.writedigit(nb, digit);
+  	}
+}
+void Dashboard::writedigit(byte nb, bool point, byte digit, bool seg) { //affiche "nb." au "digit" sélectionné si point = 1
+	if (seg){
+	    segdisp2.writedigit(nb, point, digit);
+		}
+  	else {
+    	segdisp1.writedigit(nb, point, digit);
+  	}
+}
 void Dashboard::clear() {
 	segdisp1.clear();
 	segdisp2.clear();

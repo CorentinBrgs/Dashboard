@@ -36,6 +36,11 @@ int Dashdata::read() {
   			switch (_dataCounter) {
   				case 0 :
   					this->carSpeed = _currentNb;
+
+            //debug
+            if (_currentNb > 500) {
+              delay(5000);
+            }
   					break;
   				case 1 :
   					this->rpm = _currentNb;

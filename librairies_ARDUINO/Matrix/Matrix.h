@@ -43,9 +43,6 @@ class Matrix {
 
 
   private :
-    byte _addr1 ;
-    byte _addr2 ;
-
     byte _portLine[2] ;
     byte _portRed[2] ;
     byte _portGreen[2] ; 

@@ -88,7 +88,7 @@ int main(int argc, _TCHAR* argv[])
 	} while(!(SP->IsConnected()) && (attemptCounter<MAX_ATTEMPT));
 
 	//printf("SUCCESS\n");
-	Sleep(5000);
+	Sleep(1000);
 */
 
 	//Auto research from available COM Ports
@@ -143,7 +143,7 @@ int main(int argc, _TCHAR* argv[])
 
 	while(true) //tant que le Dashboard est connecté
 	{
-	    printf("%d \n", (int((sharedData->mRpm)/10) != int(mRpm/10)));
+	    //printf("%d \n", (int((sharedData->mRpm)/10) != int(mRpm/10)));
 
         //------------------------------------------------------------------------------
         // Enable it if you want the programm to read what Arduino sends.
@@ -163,16 +163,16 @@ int main(int argc, _TCHAR* argv[])
         // Send to arduino
         //------------------------------------------------------------------------------
 
-        //printf("mGameState: (%d)\n", sharedData->mGameState );
-        //printf("mSessionState: (%d)\n", sharedData->mSessionState );
-        //printf("mRaceState: (%d)\n\n", sharedData->mRaceState );
-        //printf (" mGear : (%d)\n", sharedData->mGear );
-        //printf(" mNumGears : (%d)\n", int(sharedData->mNumGears));
-        //printf(" mRpm : (%d)\n", int((sharedData->mRpm)));
-        //printf(" mMaxRpm : (%d)\n", int((sharedData->mMaxRPM)));
-        //printf(" mSpeed : (%d)\n", int((sharedData->mSpeed)*3.6));
-        //printf(" mThrottle : (%d)\n", int((sharedData->mThrottle)*100));
-        //printf(" mBrake : (%d)\n", int((sharedData->mBrake)*100));
+        /*printf("mGameState: (%d)\n", sharedData->mGameState );
+        printf("mSessionState: (%d)\n", sharedData->mSessionState );
+        printf("mRaceState: (%d)\n\n", sharedData->mRaceState );
+        printf (" mGear : (%d)\n", sharedData->mGear );
+        printf(" mNumGears : (%d)\n", int(sharedData->mNumGears));
+        printf(" mRpm : (%d)\n", int((sharedData->mRpm)));
+        printf(" mMaxRpm : (%d)\n", int((sharedData->mMaxRPM)));
+        printf(" mSpeed : (%d)\n", int((sharedData->mSpeed)*3.6));
+        printf(" mThrottle : (%d)\n", int((sharedData->mThrottle)*100));
+        printf(" mBrake : (%d)\n", int((sharedData->mBrake)*100));*/
 
 
         //int mGameState = sharedData->mGameState ;
@@ -185,23 +185,31 @@ int main(int argc, _TCHAR* argv[])
         int mRpm = int(sharedData->mRpm);
         int mMaxRPM = int(sharedData->mMaxRPM);
         int mSpeed = int((sharedData->mSpeed)*3.6);
+        int mPosition = sharedData->mParticipantInfo[0].mRacePosition;
 
+        printf("%d\n", mGear);
+        printf("%d\n", mRpm);
+        printf("%d\n", mMaxRPM);
 
+        printf("%s\n", sharedData->mParticipantInfo[0].mName);
+        printf("%d\n", mPosition);
 
         char buffer[40]; //buffer contenant les données à envoyer. Chaine de caractère : attention à la taille de la chaine pour éviter les débordements
         //format de donnée à utiliser : '/%,%,%,%;'
         sprintf(buffer, "/%d,%d,%d,%d;", mSpeed, mRpm, mMaxRPM, mGear); //buffer envoye a l'arduino
         unsigned int nbChar = strlen (buffer);
 
-
         WriteIsOk = SP->WriteData(buffer, nbChar);
         //printf("WriteDataOk = %d\n", WriteIsOk); //si besoin de débugger l'écriture série
-        //system("cls");
 
 		if ( _kbhit() && _getch() == 27 ) // check for escape
 		{
 			break;
 		}
+
+		Sleep(20); //evite le débordement du buffer / 20=50hz
+		system("cls");
+
 	}
 
 	//------------------------------------------------------------------------------
