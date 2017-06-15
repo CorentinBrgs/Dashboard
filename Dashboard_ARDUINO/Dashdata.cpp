@@ -54,10 +54,10 @@ int Dashdata::read() {
   					}
   					break;
   				//parametres a ajouter si besoin 
-  				/*case 4 :
-  					this.  = _currentNb
+  				case 4 :
+  					 this->position = _currentNb;
   					break;
-  				case 5 : 
+  				/*case 5 : 
   					this.  = _currentNb
   					break;
   				case 6 :

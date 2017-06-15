@@ -19,6 +19,7 @@ class Dashdata {
 		int maxRpm = 0;
 		int rpm = 0;
 		int gear = 0;
+		int position = 0;
 
 	private :
 		byte _currentChar = 0;

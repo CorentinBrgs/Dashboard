@@ -18,7 +18,8 @@ class Segdisp{
     void disp(byte digit); //envoie le masque des digits à allumer
     void writedigit(byte nb, byte digit); //affiche "nb" au "digit" sélectionné
     void writedigit(byte nb, bool point, byte digit); //affiche "nb." au "digit" sélectionné si point = 1
-    void writeint(int nbint); //affiche le int (<10000) passé en paramètre
+    void writeint(int nbint, bool seg); //affiche le int (<10000) passé en paramètre
+    void writeint(int nbint1, int nbint2);
     void clear();
     MCP23017 MCPSegDisp = MCP23017(_addr);
 
@@ -28,7 +29,7 @@ class Segdisp{
     byte _portNb = 0;
     byte _portDigit = 1;
 
-    byte _digitTab[20] = 
+    byte _digitTab[21] = 
     {  //a,b,c,d,e,f,g,.
         {B00111111},//0
         {B00000110},//1
@@ -49,7 +50,8 @@ class Segdisp{
         {B11111101},//6.
         {B10000111},//7.
         {B11111111},//8.
-        {B11101111}//9.
+        {B11101111},//9.
+        {B00000000}
     };
 };
 

@@ -16,10 +16,10 @@ class Dashboard{
 		//si deux afficheurs 4*7 segments, si un seul mettre 0 en addresse pour le deuxième
 		Dashboard(byte addrMatrix1, byte addrMatrix2, 
 					byte portLine, byte portRed, byte portGreen, byte portBlue, 
-					byte addrSeg1, byte addrSeg2);
+					byte addrSeg1);
 
 		void begin();
-		void disp(int nbint);
+		void disp(int nbint, bool numSegDisp);
 		void disp(int nbint1, int nbint2);
 		void clear();
 
@@ -33,7 +33,6 @@ class Dashboard{
 
 		Matrix matrice = Matrix(_addrMatrix1, _addrMatrix2, _portLine, _portRed, _portGreen, _portBlue);
 		Segdisp segdisp1 =  Segdisp(_addrSeg1);
-		Segdisp segdisp2 =  Segdisp(_addrSeg2);
 
 	private :
 
@@ -44,7 +43,6 @@ class Dashboard{
 	byte _portGreen; 
 	byte _portBlue;	
 	byte _addrSeg1; 
-	byte _addrSeg2;
 };
 
 
